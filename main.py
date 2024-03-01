@@ -13,11 +13,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 # класс интерфейса
 class Ui_Interface(object):
+    # Метод для настройки интерфейса
     def setupUi(self, MainWindow):
+        
+        # Установка параметров окна
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(232, 153)
         MainWindow.setMinimumSize(QtCore.QSize(232, 183))
         MainWindow.setMaximumSize(QtCore.QSize(232, 183))
+        
+        # Создание центрального виджета, набора меток, кнопок и других элементов интерфейса
+        # и установка их параметров (положение, размер, шрифт и т.д.)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -82,13 +88,16 @@ class Ui_Interface(object):
         self.pushButton_2.setFont(font)
         self.pushButton_2.setObjectName("pushButton_2")
         MainWindow.setCentralWidget(self.centralwidget)
-
+        
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+        
+    # Метод для перевода текста интерфейса на другие языки
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Программа"))
+
+        # Установка текста для меток, кнопок и других элементов интерфейса
         self.label.setText(_translate("MainWindow", "Введите параметры:"))
         self.label_2.setText(_translate("MainWindow", "Кол-во эталонов ="))
         self.label_3.setText(_translate("MainWindow", "Кол-во изображений ="))
@@ -97,10 +106,12 @@ class Ui_Interface(object):
         self.pushButton_2.setText(_translate("MainWindow", "Графики"))
         self.comboBox.addItem('1')
         self.comboBox.addItem('2')
-
+        
+    # Обработчик события нажатия на кнопку "Результат"
     def button_click_1(self, Interface):
         Detection(int(self.lineEdit.text()), int(self.lineEdit_2.text())).show_results()
-
+        
+    # Обработчик события нажатия на кнопку "Графики"
     def button_click_2(self, Interface):
         Detection(int(self.lineEdit.text()), int(self.lineEdit_2.text())).show_histograms()
 
@@ -259,6 +270,7 @@ class Detection():
 
         return results
 
+    # Метод для поиска наиболее часто встречающегося элемента в списке
     def find_major(self, nums):
         m = -1
         i = 0
@@ -276,6 +288,8 @@ class Detection():
 
         return m
 
+    # Метод для получения наиболее часто встречающихся элементов
+    # в результатах работы программы
     def get_majors(self, results):
         majors = [[] for x in range(self.m)]
 
@@ -290,6 +304,7 @@ class Detection():
 
         return majors
 
+    # Метод для отображения результатов распознавания
     def show_results(self):
         results = self.get_results()
         majors = self.get_majors(results)
@@ -391,7 +406,8 @@ class Detection():
 
             if not self.flag:
                 break
-
+                
+    # Метод для отображения гистограмм точности распознавания
     def show_histograms(self):
         results = self.get_results()
         majors = self.get_majors(results)
